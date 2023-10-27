@@ -22,15 +22,13 @@
         }
         .barrier{
             background-color: #f4bf96;
-            width: 55%;
+            width: 100%;
             height: 25vh;
             display: flex;
             align-items: center;
             justify-content: center;
             margin: 50px;
             gap: 50px;
-            border: 5px solid black;
-            border-radius: 20px;
         }
         .barrier h1{
 font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
@@ -46,12 +44,10 @@ margin: 15px;
         }
         table{
             color: white;
-            border: 2px black solid;
             padding: 5px;
             background-color: azure;
             width: 80%;
             font-size: 2rem;
-border-radius: 20px;
 
         }
         th,td{
@@ -59,11 +55,11 @@ border-radius: 20px;
             border: 2px white solid;
             padding: 5px;
             background-color: rgba(60, 60, 60, 0.4);
-            border-radius: 5px;
         }
         .grid{
-            width: 60%;
+            width: 90%;
             display: grid;
+            grid-template-columns: 33% 33% 33%;
 
             
 
@@ -71,11 +67,41 @@ border-radius: 20px;
         .card{
             width: 90%;
             background-color: #f4bf96;
-            border-radius: 20px;
-            border: 3px #4e4e4e solid;
             overflow: hidden;
             margin-bottom: 25px;
+            display: flex;
+            flex-direction: column;
+border-radius: 15px;
             place-self: center;
+            transition: all 0.3s ease-in-out;
+            position: relative;
+        }
+        .play-con{
+            margin: 20px;
+            display: flex;
+            width: 100%;
+            justify-content: space-evenly;
+            align-items: center;
+        }
+        .type{
+            justify-content: space-evenly;
+            align-items: center;
+            width: 100%;
+            background-color: #ffffff;
+            display: none;
+            opacity: 0;
+            transition: all 0.3s ease-in-out;
+        
+        }
+        .card:hover .type{
+            display: flex;
+            opacity: 1;
+        }
+        .card:hover{
+            scale: 1.1;
+        }
+        .type h3{
+            margin: 20px;
         }
         .con-number{
             display: flex;
@@ -84,7 +110,8 @@ border-radius: 20px;
             align-items: center;
         }
         .card h1 {
-            margin: 20px;
+            margin: 5px;
+            font-size: 20px;
         }
         .card h2 {
             margin: 5px;
@@ -107,9 +134,10 @@ border-radius: 20px;
 
         }
         audio{
-            width: 90%;
+            width: 40%;
             color: aliceblue;
             margin-top: 2%;
+            place-self: center;
             margin-bottom: 2%;
         }
         .play{
@@ -124,6 +152,29 @@ border-radius: 20px;
         .con-up{
             display: flex;
             justify-content: center;
+        }
+         @media screen and (max-width: 1500px){
+            .grid{
+                grid-template-columns: 50% 50%;
+            }
+            
+        }
+        @media screen and (max-width: 900px){
+            .card{
+                font-size: 1rem;
+            }
+            .grid{
+                grid-template-columns: 100%;
+            }
+            
+            
+        }
+        @media screen and (max-width: 600px){
+            .card{
+                font-size: 0.8rem;
+            }
+            
+            
         }
         
     </style>
@@ -155,76 +206,40 @@ border-radius: 20px;
                    const listData = document.getElementById("grid")
                     const row = document.createElement('div')
                     row.classList.add("card")
+                    const cons = document.createElement('div')
+                    cons.classList.add("play-con")
                     const con = document.createElement('div')
-                    con.classList.add("con-up")
-                    const iSurah = document.createElement('h1')
-                iSurah.innerText = "Surah"
-                const surah = document.createElement('h1')
-                surah.innerText = el.name
-                const number = document.createElement('div')
-                    number.classList.add("con-number")
-                    const numberAyat = document.createElement('div')
-                    numberAyat.classList.add("con-ayat")
-                    const iAyat= document.createElement('h2')
-                iAyat.innerText = "jumlah ayat"
-                iAyat.style.fontSize = "1.1rem"
-
-                    const numberSurah = document.createElement('div')
-                    numberSurah.classList.add("con-surah")
-                    const iSurat= document.createElement('h2')
-                iSurat.innerText = "urutan surah"
-                iSurat.style.fontSize = "1.1rem"
-
-                const ayat= document.createElement('h2')
-                ayat.innerText = el.number_of_ayah
-                const urutan = document.createElement('h2')
-                urutan.innerText = el.number_of_surah
-
-                const number2 = document.createElement('div')
-                    number2.classList.add("con-number")
-                    const numberTurun = document.createElement('div')
-                    numberTurun.classList.add("con-ayat")
-
-                    const iTurun= document.createElement('h2')
-                iTurun.innerText = "Tempat turun"
-                iTurun.style.fontSize = "1.1rem"
-                    const numberTipe = document.createElement('div')
-                    numberTipe.classList.add("con-surah")
-                    const iTipe= document.createElement('h2')
-                iTipe.innerText = "Tipe surah"
-                iTipe.style.fontSize = "1.1rem"
-                const turun = document.createElement('h2')
-                turun.innerText = el.place
-                const tipe = document.createElement('h2')
-                tipe.innerText = el.type
-                const cPlay = document.createElement('div')
-                    cPlay.classList.add("play")
+                    con.classList.add("number")
+                    const num = document.createElement('h2')
+                    num.innerText = el.number_of_surah
+                    const type = document.createElement('div')
+                    type.classList.add("type")
+                    const judul = document.createElement('h1')
+                    judul.innerText = el.name
+                    const ayat = document.createElement('h3')
+                    ayat.innerText = el.number_of_ayah + " ayat"
                 const play = document.createElement('audio')
                play.src = el.recitation
                play.type = "audio/mpeg"
                play.controls = true;
-               
+               const place = document.createElement('h3')
+                    place.innerText = "tempat turun di "+ el.place
+                    const tipe = document.createElement('h3')
+                    tipe.innerText = "surah "+ el.place
 
                 listData.appendChild(row);
-                row.appendChild(con)
-                con.appendChild(iSurah)
+                row.appendChild(cons)
+                row.appendChild(type)
+                cons.appendChild(con)
+                cons.appendChild(judul)
+                cons.appendChild(ayat)
+                cons.appendChild(play)
+                con.appendChild(num)
+                type.appendChild(place)
+                type.appendChild(tipe)
+
                 
-                con.appendChild(surah)
-                row.appendChild(number)
-                number.appendChild(numberSurah)
-                number.appendChild(numberAyat)
-                numberSurah.appendChild(iAyat)
-                numberAyat.appendChild(iSurat)
-                numberSurah.appendChild(ayat)
-                numberAyat.appendChild(urutan)
-                number.appendChild(numberTurun)
-                number.appendChild(numberTipe)
-                numberTurun.appendChild(iTurun)
-                numberTipe.appendChild(iTipe)
-                numberTurun.appendChild(turun)
-               numberTipe.appendChild(tipe)
-                row.appendChild(cPlay)
-                cPlay.appendChild(play)
+               
                 
                 
                 
